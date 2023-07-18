@@ -1,4 +1,5 @@
 package com.example.demo.entites;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,5 +19,14 @@ public class projet implements Serializable {
     private String nomprojet;
     private String regionprojet ;
     private String duréeprojet ;
+    @Enumerated(EnumType.STRING)
+    private StatutDaffectation statutDaffectation ;
+
+    // many to one with user
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "idUser")
+    private User user;
+
 
 }

@@ -17,8 +17,16 @@ public class Ressources implements Serializable {
     private Long idRessource;
     private String nomRessource;
     private String prenomRessource;
+    private String manager ;
+    private String departement ;
     private int jourdispo;
     private int jourformation;
     private int jourconge;
+
+    // liaison  with user Many to one
+    @ManyToOne (fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JoinColumn(name = "idUser")
+    private User user;
+
 }
 
