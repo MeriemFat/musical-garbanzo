@@ -17,10 +17,9 @@ public class projet implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idprojet;
     private String nomprojet;
-    private String regionprojet ;
+    private String region;
+    private String country;
     private String duréeprojet ;
-    @Enumerated(EnumType.STRING)
-    private StatutDaffectation statutDaffectation ;
 
     // many to one with user
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
