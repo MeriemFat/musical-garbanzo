@@ -32,4 +32,15 @@ public class ProjetRestControllers {
         return projets;
     }
 
+    //http://localhost:8082/updateProjet/1
+    @PutMapping("/updateProjet/{idprojet}")
+    public void updateProjet(@RequestBody projet p) {
+        projetControl.updateProjet(p);
+    }
+
+    //http://localhost:8082/removeProjet/1
+    @DeleteMapping("/removeProjet/{idprojet}")
+    public void removeprojet(@PathVariable("idprojet") Long idprojet) {
+        projetControl.removeProjet(idprojet);
+    }
 }

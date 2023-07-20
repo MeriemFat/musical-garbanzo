@@ -14,10 +14,15 @@ import java.util.List;
 @Slf4j
 public class ProjetServices implements IProjet {
     @Autowired
-    projetRepo projetRepository ;
+    projetRepo projetRepository;
 
     @Autowired
     UserRepo userRepository;
+
+    @Override
+    public projet updateProjet(projet p) {
+            return projetRepository.save(p);
+    }
     @Override
     public List<projet> GetAllprojet() {
         return projetRepository.findAll();
@@ -25,16 +30,10 @@ public class ProjetServices implements IProjet {
     @Override
     public void removeProjet(Long idprojet){projetRepository.deleteById(idprojet);}
     @Override
-    public projet addProjetwithIdUser(projet p, Long idUser) {
+    public projet addProjetwithIdUser(projet p, Long idUser ) {
         User user = userRepository.findById(idUser).orElse(null);
         p.setUser(user);
         return projetRepository.save(p);
     }
-
-    @Override
-    public projet updateEtablissement(projet p )  {
-        return projetRepository.save(p);
-    }
-
 
 }
