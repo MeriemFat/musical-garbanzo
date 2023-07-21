@@ -5,6 +5,7 @@ import com.example.demo.entites.User;
 import com.example.demo.repository.RessourceRepo;
 import com.example.demo.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,10 @@ public class RessourceServices implements IRessource{
     }
 
     @Override
-    public Ressources updateRessource(Ressources r){
-        return ressourceRepository.save(r);
+    public Ressources updateRessource(Ressources r , Long idRessources){
+        Ressources existingRessource = ressourceRepository.findById(idRessources).orElseThrow(() -> new RuntimeException("Ressource not found with id: " + idRessources));
+        BeanUtils.copyProperties(r, existingRessource, "idRessources");
+        return ressourceRepository.save(existingRessource);
     }
 
     @Override

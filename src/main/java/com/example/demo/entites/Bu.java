@@ -16,4 +16,5 @@ public class Bu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBu;
 
+
 }
