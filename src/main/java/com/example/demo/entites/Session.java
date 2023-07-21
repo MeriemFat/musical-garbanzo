@@ -21,16 +21,19 @@ public class Session implements Serializable {
     private String duréeprojet ;
     @Enumerated(EnumType.STRING)
     private TypeSession typeSession ;
-// liaison avec projet
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "Session")
-    @JsonIgnore
-    @ToString.Exclude
-    private List<projet> project;
 
-// liaison avec ressource
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "Session")
+    // liaison avec projet one to many
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "session")
     @JsonIgnore
     @ToString.Exclude
-    private List<Ressources> resources;
+    private List<projet> projets;
+
+
+    // liaison avec ressource one to many
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "session")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Ressources> ressources;
+
 
 }

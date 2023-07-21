@@ -19,10 +19,14 @@ public class StatuDaffectation implements Serializable {
     private Long idStat;
     private Date Nomstatutdaff;
 
-    // liaison avec Session
+    // liaison avec BU
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "idBu")
-    private Bu affectation;
+    private Bu bu;
+
+
+
+
 
 }

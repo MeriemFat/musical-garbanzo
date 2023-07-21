@@ -15,10 +15,14 @@ public class Naturedaffectation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNaturedaffec;
-    private String nomNatureDaff;
-// liaison with BU
+    private String nameNaturedaffec ;
+
+
+// liaison avec bu many to one
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "idBu")
-    private Bu affectation;
+    private Bu bu;
+
+
 }

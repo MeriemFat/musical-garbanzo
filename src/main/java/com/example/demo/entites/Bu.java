@@ -19,18 +19,20 @@ public class Bu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBu;
 
-
-// liaison with Nature d'affectation
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "BU")
+// liaison avec nature d'affectation one to many
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "bu")
     @JsonIgnore
     @ToString.Exclude
     private List<Naturedaffectation> naturedaffectations;
 
-    // liaison with statu d'affectation
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "BU")
+
+    // liaison avec statu d'affectation
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "bu")
     @JsonIgnore
     @ToString.Exclude
-    private List<StatuDaffectation> statuDaffectations ;
+    private List<StatuDaffectation> statuDaffectations;
+
 
 
 }
