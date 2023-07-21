@@ -1,4 +1,5 @@
 package com.example.demo.entites;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,12 @@ public class Ressources implements Serializable {
     @ManyToOne (fetch = FetchType.LAZY,cascade =CascadeType.ALL)
     @JoinColumn(name = "idUser")
     private User user;
+
+    // liaison avec Session
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "idsession")
+    private Session session;
 
 }
 

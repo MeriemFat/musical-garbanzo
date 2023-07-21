@@ -19,13 +19,19 @@ public class projet implements Serializable {
     private String nomprojet;
     private String region;
     private String country;
-    private String duréeprojet ;
+
 
     // many to one with user
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "idUser")
     private User user;
+
+    // liaison avec Session
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "idsession")
+    private Session session;
 
 
 }

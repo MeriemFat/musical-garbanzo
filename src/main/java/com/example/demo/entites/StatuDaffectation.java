@@ -1,11 +1,9 @@
 package com.example.demo.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,5 +18,11 @@ public class StatuDaffectation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStat;
     private Date Nomstatutdaff;
+
+    // liaison avec Session
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "idBu")
+    private Bu affectation;
 
 }

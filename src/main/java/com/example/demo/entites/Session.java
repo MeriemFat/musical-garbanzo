@@ -4,6 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,10 +16,21 @@ import java.util.Date;
 public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Session;
+    private Long idsession;
     private Date dateSession;
     private String duréeprojet ;
     @Enumerated(EnumType.STRING)
     private TypeSession typeSession ;
+// liaison avec projet
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "Session")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<projet> project;
+
+// liaison avec ressource
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "Session")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Ressources> resources;
 
 }

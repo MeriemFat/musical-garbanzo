@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionRepo extends JpaRepository<Session, Long> {
+
 }
