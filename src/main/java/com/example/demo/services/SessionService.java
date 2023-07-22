@@ -23,5 +23,4 @@ public class SessionService implements ISession{
     public List<Session> GetAllSession() {
         return sessionRepository.findAll();
     }
-
 }
