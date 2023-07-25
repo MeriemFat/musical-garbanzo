@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.entites.Affectation;
+import com.example.demo.entites.Ressources;
+import com.example.demo.entites.UnauthorizedActionException;
 import com.example.demo.entites.User;
 import com.example.demo.repository.AffectationRepo;
 import com.example.demo.repository.UserRepo;
@@ -34,13 +36,14 @@ public class AffectationServices implements IAffectation {
     }
 
     @Override
-    public Affectation updateAffectation(Affectation affectation){
-        return affectationRepository.save(affectation);
+    public Affectation updateAffectation(Affectation affectation, Long idAffectation){
+        Affectation existingAffectation = affectationRepository.findById(idAffectation).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + idAffectation));;
+        BeanUtils.copyProperties(affectation, existingAffectation, "idAffectation");
+        return affectationRepository.save(existingAffectation);
     }
 
     @Override
     public void deleteAffectation (Long idAffectation) {
-
         affectationRepository.deleteById(idAffectation);
     }
 }

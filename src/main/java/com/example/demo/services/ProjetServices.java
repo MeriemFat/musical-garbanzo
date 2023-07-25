@@ -7,6 +7,7 @@ import com.example.demo.entites.projet;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.repository.projetRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,29 +22,23 @@ public class ProjetServices implements IProjet {
     @Autowired
     UserRepo userRepository;
 
+
     @Override
     public List<projet> GetAllprojet() {
         return projetRepository.findAll();
     }
 
-
-
     @Override
-    public projet updateProjet(projet p, User currentUser) {
-        if (currentUser.getRoleUser() == RoleUser.admin)
-            return projetRepository.save(p);
-        else
-            throw new UnauthorizedActionException("Only admin can update projects.");
+    public projet updateProjet(projet p,Long projectId) {
+        projet existingProject = projetRepository.findById(projectId).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + projectId));
+        BeanUtils.copyProperties(p, existingProject, "idprojet");
+        return projetRepository.save(existingProject);
     }
 
     @Override
-    public void removeProjet(Long idprojet, User currentUser){
-        if(currentUser.getRoleUser() == RoleUser.admin)
+    public void removeProjet(Long idprojet){
             projetRepository.deleteById(idprojet);
-        else
-            throw new UnauthorizedActionException("Only admin  can update projects.");
     }
-
 
     @Override
     public projet addProjetwithIdUser(projet p, Long idUser ) {

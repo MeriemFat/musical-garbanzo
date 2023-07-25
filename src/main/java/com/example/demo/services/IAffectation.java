@@ -11,6 +11,6 @@ public interface IAffectation {
     List<Affectation> getAllAffectations();
     Affectation addAffectation(Affectation affectation , Long idUser);
 
-    Affectation updateAffectation(Affectation affectation);
+    Affectation updateAffectation(Affectation affectation, Long idAffectation);
     void deleteAffectation(Long idAffectation);
 }

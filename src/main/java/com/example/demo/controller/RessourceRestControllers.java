@@ -41,17 +41,17 @@ public class RessourceRestControllers {
 
     //http://localhost:8082/update-ressource/1
     @PutMapping("/update/{idRessource}")
-    public void updateRessource(@RequestBody Ressources r ) {
-        ressourceControl.updateRessource(r);
+    public void updateRessource(@RequestBody Ressources r,
+                                @PathVariable("idRessource") Long idRessource ) {
+        ressourceControl.updateRessource(r,idRessource);
     }
 
 
 
     //http://localhost:8082/removeRessource/1
     @DeleteMapping("/removeRessource/{idressource}")
-    public void removeprojet(@PathVariable("idressource") Long idressource, Principal principal) {
-        User currentUser = (User) principal;
-        ressourceControl.removeRessouce(idressource, currentUser);
+    public void removeprojet(@PathVariable("idressource") Long idressource ) {
+        ressourceControl.removeRessouce(idressource);
     }
 
 }

@@ -21,22 +21,23 @@ public class RessourceServices implements IRessource{
     @Autowired
     UserRepo userRepository;
 
+
+
     @Override
     public List<Ressources> getAllRessources() {
         return ressourceRepository.findAll();
     }
 
     @Override
-    public void removeRessouce(Long idRessources, User currentUser) {
-        if(currentUser.getRoleUser() == RoleUser.admin)
+    public void removeRessouce(Long idRessources) {
             ressourceRepository.deleteById(idRessources);
-        else
-            throw new UnauthorizedActionException("Only admin can update projects.");
     }
 
     @Override
-    public Ressources updateRessource(Ressources r ){
-        return ressourceRepository.save(r);
+    public Ressources updateRessource(Ressources r, Long idRessource ){
+        Ressources existingRessource = ressourceRepository.findById(idRessource).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + idRessource));;
+        BeanUtils.copyProperties(r, existingRessource, "idRessource");
+        return ressourceRepository.save(existingRessource);
     }
 
     @Override

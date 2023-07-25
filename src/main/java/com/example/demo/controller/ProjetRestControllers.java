@@ -36,16 +36,15 @@ public class ProjetRestControllers {
 
     //http://localhost:8082/updateProjet/1
     @PutMapping("/updates/{idprojet}")
-    public void updateProjet(@RequestBody projet p,Principal principal) {
-        User currentUser = (User) principal;
-        projetControl.updateProjet(p, currentUser);
+    public void updateProjet(@RequestBody projet p,
+                             @PathVariable("idprojet") Long idprojet) {
+        projetControl.updateProjet(p,idprojet);
     }
 
     //http://localhost:8082/projet/removeProjet/3
     @DeleteMapping("/removeProjet/{idprojet}")
-    public void removeprojet(@PathVariable("idprojet") Long idprojet, Principal principal) {
-        User currentUser = (User) principal;
-        projetControl.removeProjet(idprojet,currentUser);
+    public void removeprojet(@PathVariable("idprojet") Long idprojet) {
+        projetControl.removeProjet(idprojet);
     }
 
 }

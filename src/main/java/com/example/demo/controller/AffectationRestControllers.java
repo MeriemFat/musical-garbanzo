@@ -26,8 +26,9 @@ public class AffectationRestControllers {
     }
 
     @PutMapping("/update/{idAffectation}")
-    public void updateAffectation(@RequestBody Affectation affectation){
-        affectationControl.updateAffectation(affectation);
+    public void updateAffectation(@RequestBody Affectation affectation,
+                                  @PathVariable("idAffectation") Long idAffectation){
+        affectationControl.updateAffectation(affectation, idAffectation);
     }
     @DeleteMapping("/deleteaffectation/{idAffectation}")
     public void deleteAffectation(@PathVariable("idAffectation") Long idAffectation) {

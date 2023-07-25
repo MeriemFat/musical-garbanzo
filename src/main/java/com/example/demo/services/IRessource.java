@@ -10,9 +10,9 @@ public interface IRessource {
 
     List<Ressources> getAllRessources();
 
-    void removeRessouce(Long idRessources, User currentUser);
+    void removeRessouce(Long idRessources);
 
-    Ressources updateRessource(Ressources r);
+    Ressources updateRessource(Ressources r, Long idRessource);
 
     Ressources addRessourcewithIdUser(Ressources r, Long idUser);
 }
