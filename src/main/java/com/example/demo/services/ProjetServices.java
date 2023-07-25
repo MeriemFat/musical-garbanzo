@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entites.RoleUser;
+import com.example.demo.entites.UnauthorizedActionException;
 import com.example.demo.entites.User;
 import com.example.demo.entites.projet;
 import com.example.demo.repository.UserRepo;
@@ -29,16 +30,19 @@ public class ProjetServices implements IProjet {
 
     @Override
     public projet updateProjet(projet p, User currentUser) {
-        if(currentUser.getRoleUser() == RoleUser.admin)
+        if (currentUser.getRoleUser() == RoleUser.admin)
             return projetRepository.save(p);
+        else
+            throw new UnauthorizedActionException("Only admin can update projects.");
     }
 
     @Override
     public void removeProjet(Long idprojet, User currentUser){
         if(currentUser.getRoleUser() == RoleUser.admin)
             projetRepository.deleteById(idprojet);
+        else
+            throw new UnauthorizedActionException("Only admin  can update projects.");
     }
-
 
 
     @Override

@@ -36,8 +36,9 @@ public class ProjetRestControllers {
 
     //http://localhost:8082/updateProjet/1
     @PutMapping("/updates/{idprojet}")
-    public void updateProjet(@RequestBody projet p) {
-        projetControl.updateProjet(p, user);
+    public void updateProjet(@RequestBody projet p,Principal principal) {
+        User currentUser = (User) principal;
+        projetControl.updateProjet(p, currentUser);
     }
 
     //http://localhost:8082/projet/removeProjet/3

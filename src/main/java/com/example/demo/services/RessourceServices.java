@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.entites.Ressources;
+import com.example.demo.entites.RoleUser;
+import com.example.demo.entites.UnauthorizedActionException;
 import com.example.demo.entites.User;
 import com.example.demo.repository.RessourceRepo;
 import com.example.demo.repository.UserRepo;
@@ -25,8 +27,11 @@ public class RessourceServices implements IRessource{
     }
 
     @Override
-    public void removeRessouce(Long idRessources) {
-        ressourceRepository.deleteById(idRessources);
+    public void removeRessouce(Long idRessources, User currentUser) {
+        if(currentUser.getRoleUser() == RoleUser.admin)
+            ressourceRepository.deleteById(idRessources);
+        else
+            throw new UnauthorizedActionException("Only admin can update projects.");
     }
 
     @Override
