@@ -11,7 +11,7 @@ public interface IRessource {
 
     void removeRessouce(Long idRessources);
 
-    Ressources updateRessource(Ressources r , Long idRessources);
+    Ressources updateRessource(Ressources r);
 
     Ressources addRessourcewithIdUser(Ressources r, Long idUser);
 }

@@ -20,14 +20,14 @@ public class RessourceRestControllers {
     RessourceServices ressourceControl;
 
 
-    //get all ressources
     //http://localhost:8082/Ressources/getAllRessources
     @GetMapping("/getallRessources")
     List<Ressources> getAllRessources(){
         return ressourceControl.getAllRessources();
     }
 
-    //add ressource
+
+
     //http://localhost:8082/Ressources/add/1
     @PostMapping("/addressource/{idUser}")
     public Ressources addRessourcewithIdUser(@RequestBody Ressources r ,
@@ -36,15 +36,16 @@ public class RessourceRestControllers {
         return ressource;
     }
 
-    //update ressource ( chek)
+
+
     //http://localhost:8082/update-ressource/1
-    @PutMapping("update/{{idRessource}}")
-    public ResponseEntity<Ressources> updateRessource(@RequestBody Ressources r , @PathVariable("Long idRessources") Long idressource){
-        Ressources updatedEntity = ressourceControl.updateRessource(r, idressource);
-        return new ResponseEntity<>(updatedEntity, HttpStatus.OK);
+    @PutMapping("/update/{idRessource}")
+    public void updateRessource(@RequestBody Ressources r ) {
+        ressourceControl.updateRessource(r);
     }
 
-    //remove ressource
+
+
     //http://localhost:8082/removeRessource/1
     @DeleteMapping("/removeRessource/{idressource}")
     public void removeprojet(@PathVariable("idressource") Long idressource) {

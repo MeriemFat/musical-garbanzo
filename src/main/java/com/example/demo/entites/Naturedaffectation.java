@@ -21,8 +21,8 @@ public class Naturedaffectation implements Serializable {
 // liaison avec bu many to one
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "idBu")
-    private Bu bu;
+    @JoinColumn(name = "idAffectation")
+    private Affectation affectation;
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entites.RoleUser;
 import com.example.demo.entites.User;
 import com.example.demo.entites.projet;
 import com.example.demo.repository.UserRepo;
@@ -20,15 +21,26 @@ public class ProjetServices implements IProjet {
     UserRepo userRepository;
 
     @Override
-    public projet updateProjet(projet p) {
-            return projetRepository.save(p);
-    }
-    @Override
     public List<projet> GetAllprojet() {
         return projetRepository.findAll();
     }
+
+
+
     @Override
-    public void removeProjet(Long idprojet){projetRepository.deleteById(idprojet);}
+    public projet updateProjet(projet p, User currentUser) {
+        if(currentUser.getRoleUser() == RoleUser.admin)
+            return projetRepository.save(p);
+    }
+
+    @Override
+    public void removeProjet(Long idprojet, User currentUser){
+        if(currentUser.getRoleUser() == RoleUser.admin)
+            projetRepository.deleteById(idprojet);
+    }
+
+
+
     @Override
     public projet addProjetwithIdUser(projet p, Long idUser ) {
         User user = userRepository.findById(idUser).orElse(null);

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entites.User;
 import com.example.demo.entites.projet;
 import com.example.demo.services.IProjet;
 import com.example.demo.services.ProjetServices;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -35,13 +37,14 @@ public class ProjetRestControllers {
     //http://localhost:8082/updateProjet/1
     @PutMapping("/updates/{idprojet}")
     public void updateProjet(@RequestBody projet p) {
-        projetControl.updateProjet(p);
+        projetControl.updateProjet(p, user);
     }
 
     //http://localhost:8082/projet/removeProjet/3
     @DeleteMapping("/removeProjet/{idprojet}")
-    public void removeprojet(@PathVariable("idprojet") Long idprojet) {
-        projetControl.removeProjet(idprojet);
+    public void removeprojet(@PathVariable("idprojet") Long idprojet, Principal principal) {
+        User currentUser = (User) principal;
+        projetControl.removeProjet(idprojet,currentUser);
     }
 
 }
