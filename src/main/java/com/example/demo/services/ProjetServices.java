@@ -36,8 +36,11 @@ public class ProjetServices implements IProjet {
     }
 
     @Override
-    public void removeProjet(Long idprojet){
+    public void removeProjet(Long idprojet, User currentUser){
+        if(currentUser.getRoleUser() == RoleUser.admin)
             projetRepository.deleteById(idprojet);
+        else
+            throw new UnauthorizedActionException("Only admin users can update projects.");
     }
 
     @Override

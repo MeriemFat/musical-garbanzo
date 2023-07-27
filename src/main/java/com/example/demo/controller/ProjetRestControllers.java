@@ -42,9 +42,10 @@ public class ProjetRestControllers {
     }
 
     //http://localhost:8082/projet/removeProjet/3
-    @DeleteMapping("/removeProjet/{idprojet}")
-    public void removeprojet(@PathVariable("idprojet") Long idprojet) {
-        projetControl.removeProjet(idprojet);
+    @DeleteMapping("/removeProjet/{iduser}/{idprojet}")
+    public void removeprojet(@PathVariable("idprojet") Long idprojet,
+                             @PathVariable("iduser") User currentUser) {
+        projetControl.removeProjet(idprojet, currentUser);
     }
 
 }

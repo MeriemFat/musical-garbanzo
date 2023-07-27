@@ -29,8 +29,11 @@ public class RessourceServices implements IRessource{
     }
 
     @Override
-    public void removeRessouce(Long idRessources) {
+    public void removeRessouce(Long idRessources, User currentUser) {
+        if(currentUser.getRoleUser() == RoleUser.admin)
             ressourceRepository.deleteById(idRessources);
+        else
+            throw new UnauthorizedActionException("Only admin users can update projects.");
     }
 
     @Override

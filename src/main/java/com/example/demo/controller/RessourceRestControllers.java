@@ -49,9 +49,10 @@ public class RessourceRestControllers {
 
 
     //http://localhost:8082/removeRessource/1
-    @DeleteMapping("/removeRessource/{idressource}")
-    public void removeprojet(@PathVariable("idressource") Long idressource ) {
-        ressourceControl.removeRessouce(idressource);
+    @DeleteMapping("/removeRessource/{iduser}/{idressource}")
+    public void removeprojet(@PathVariable("idressource") Long idressource,
+                             @PathVariable("iduser") User currentUser) {
+        ressourceControl.removeRessouce(idressource, currentUser);
     }
 
 }

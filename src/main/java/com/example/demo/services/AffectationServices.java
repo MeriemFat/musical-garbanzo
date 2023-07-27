@@ -38,7 +38,7 @@ public class AffectationServices implements IAffectation {
     @Override
     public Affectation updateAffectation(Affectation affectation, Long idAffectation){
         Affectation existingAffectation = affectationRepository.findById(idAffectation).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + idAffectation));;
-        BeanUtils.copyProperties(affectation, existingAffectation, "idAffectation");
+        BeanUtils.copyProperties(affectation, existingAffectation,"statuDaffectations","naturedaffectations", "idAffectation");
         return affectationRepository.save(existingAffectation);
     }
 
