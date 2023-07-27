@@ -10,7 +10,7 @@ public interface IRessource {
 
     List<Ressources> getAllRessources();
 
-    void removeRessouce(Long idRessources);
+    void removeRessouce(Long idRessources, User currentUser);
 
     Ressources updateRessource(Ressources r, Long idRessource);
 
