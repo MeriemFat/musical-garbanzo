@@ -12,7 +12,7 @@ public interface IProjet {
 
     void removeProjet(Long idprojet, User currentUser);
 
-    projet addProjetwithIdUser(projet p, Long idUser);
+    projet addProjetwithIdUser(projet p, Long idUser,String nomprojet);
 
 
 }

@@ -43,11 +43,29 @@ public class ProjetServices implements IProjet {
             throw new UnauthorizedActionException("Only admin users can update projects.");
     }
 
-    @Override
+    /*@Override
     public projet addProjetwithIdUser(projet p, Long idUser ) {
         User user = userRepository.findById(idUser).orElse(null);
         p.setUser(user);
         return projetRepository.save(p);
+    }*/
+
+    @Override
+    public projet addProjetwithIdUser(projet p, Long idUser , String nomprojet ) {
+        User user = userRepository.findById(idUser).orElse(null);
+        p.setUser(user);
+        projet projetExistant = projetRepository.findByNomprojet(nomprojet);
+        if (projetExistant == null) {
+            projet nouveauProjet = new projet();
+            nouveauProjet.setNomprojet(p.getNomprojet());
+            nouveauProjet.setUser(user);
+            nouveauProjet.setRegion(p.getRegion());
+            nouveauProjet.setCountry(p.getCountry());
+            return projetRepository.save(nouveauProjet);
+        } else {
+// Le projet existe déjà, vous pouvez choisir de lever une exception, de renvoyer un message, etc.
+            return null;
+        }
     }
 
 }

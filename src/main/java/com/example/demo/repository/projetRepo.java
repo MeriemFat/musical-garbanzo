@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface projetRepo extends JpaRepository<projet, Long> {
 
-
+    projet findByNomprojet(String nomProjet);
 }
