@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 @Entity
 @Getter
@@ -19,6 +20,18 @@ public class projet implements Serializable {
     private String nomprojet;
     private String region;
     private String country;
+
+    public Object get(String attributeName) {
+        try {
+            Class<?> clazz = this.getClass();
+            Field field = clazz.getDeclaredField(attributeName);
+            field.setAccessible(true);
+            return field.get(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     // many to one with user

@@ -1,11 +1,10 @@
 package com.example.demo.services;
 
-import com.example.demo.entites.Affectation;
-import com.example.demo.entites.Ressources;
-import com.example.demo.entites.UnauthorizedActionException;
-import com.example.demo.entites.User;
+import com.example.demo.entites.*;
 import com.example.demo.repository.AffectationRepo;
+import com.example.demo.repository.RessourceRepo;
 import com.example.demo.repository.UserRepo;
+import com.example.demo.repository.projetRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,10 @@ public class AffectationServices implements IAffectation {
     AffectationRepo affectationRepository ;
     @Autowired
     UserRepo userRepository;
+    @Autowired
+    projetRepo projetRepository;
+    @Autowired
+    RessourceRepo ressourceRepository;
 
 
     @Override
@@ -31,7 +34,11 @@ public class AffectationServices implements IAffectation {
     @Override
     public Affectation addAffectation (Affectation affectation , Long idUser) {
         User user = userRepository.findById(idUser).orElse(null);
-        affectation .setUser(user);
+        projet project = projetRepository.findByNomprojet(affectation.getProjet());
+        Ressources ressource = ressourceRepository.findByNomRessource(affectation.getRessource());
+        affectation.setUser(user);
+        affectation.setProject(project);
+        affectation.setResssource(ressource);
         return affectationRepository.save(affectation );
     }
 

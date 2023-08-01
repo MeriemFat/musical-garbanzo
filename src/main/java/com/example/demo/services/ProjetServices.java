@@ -1,9 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.entites.RoleUser;
-import com.example.demo.entites.UnauthorizedActionException;
-import com.example.demo.entites.User;
-import com.example.demo.entites.projet;
+import com.example.demo.entites.*;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.repository.projetRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -28,11 +29,34 @@ public class ProjetServices implements IProjet {
         return projetRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public projet updateProjet(projet p,Long projectId) {
         projet existingProject = projetRepository.findById(projectId).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + projectId));
         BeanUtils.copyProperties(p, existingProject, "idprojet");
         return projetRepository.save(existingProject);
+    }*/
+
+    public static List<String> getProjetAttributes(Class<?> projeteClass) {
+        List<String> attributeNames = new ArrayList<>();
+        Field[] fields = projeteClass.getDeclaredFields();
+        for (Field field : fields) {
+            attributeNames.add(field.getName());
+        }
+        return attributeNames;
+    }
+
+    @Override
+    public projet updateProjet(projet p,Long projectId) {
+        projet existingProjet = projetRepository.findById(projectId).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + projectId));;
+        List<String> attributes = getProjetAttributes(projet.class);
+        Set<String> ignoreProperties = new HashSet<>();
+        for (String attribute : attributes) {
+            if (p.get(attribute) == null)
+                ignoreProperties.add(attribute);
+        }
+        String[] ignorePropertiesArray = ignoreProperties.toArray(new String[0]);
+        BeanUtils.copyProperties(p, existingProjet, ignorePropertiesArray);
+        return projetRepository.save(existingProjet);
     }
 
     @Override
@@ -43,12 +67,6 @@ public class ProjetServices implements IProjet {
             throw new UnauthorizedActionException("Only admin users can update projects.");
     }
 
-    /*@Override
-    public projet addProjetwithIdUser(projet p, Long idUser ) {
-        User user = userRepository.findById(idUser).orElse(null);
-        p.setUser(user);
-        return projetRepository.save(p);
-    }*/
 
     @Override
     public projet addProjetwithIdUser(projet p, Long idUser , String nomprojet ) {
@@ -63,7 +81,6 @@ public class ProjetServices implements IProjet {
             nouveauProjet.setCountry(p.getCountry());
             return projetRepository.save(nouveauProjet);
         } else {
-// Le projet existe déjà, vous pouvez choisir de lever une exception, de renvoyer un message, etc.
             return null;
         }
     }

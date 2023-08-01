@@ -24,13 +24,6 @@ public class ProjetRestControllers {
          return projetControl.GetAllprojet();
      }
 
-    /*@PostMapping("/addProject/{idUser}")
-    public projet addProjetwithIdUser(@RequestBody projet p ,
-                                      @PathVariable("idUser") Long idUser)
-    {
-        projet projets = projetControl.addProjetwithIdUser(p,idUser);
-        return projets;
-    }*/
 
     @PostMapping("/addprojet/{idUser}/{nomprojet}")
     public ResponseEntity<String> addProjetwithIdUser(@RequestBody projet p ,

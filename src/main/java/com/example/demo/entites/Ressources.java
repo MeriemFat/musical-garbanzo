@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 @Entity
 @Getter
@@ -34,6 +35,18 @@ public class Ressources implements Serializable {
     @JsonIgnore
     @JoinColumn(name = "idsession")
     private Session session;
+
+    public Object get(String attributeName) {
+        try {
+            Class<?> clazz = this.getClass();
+            Field field = clazz.getDeclaredField(attributeName);
+            field.setAccessible(true);
+            return field.get(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
 
