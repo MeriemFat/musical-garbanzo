@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entites.User;
 import com.example.demo.entites.projet;
-import com.example.demo.services.IProjet;
 import com.example.demo.services.ProjetServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +26,13 @@ public class ProjetRestControllers {
 
     @PostMapping("/addprojet/{idUser}/{nomprojet}")
     public ResponseEntity<String> addProjetwithIdUser(@RequestBody projet p ,
-                                                      @PathVariable("idUser") Long idUser ,
-                                                      @PathVariable("nomprojet") String nomprojet) {
-        projet projets = projetControl.addProjetwithIdUser(p, idUser, nomprojet);
+                                                      @PathVariable("idUser") Long idUser ) {
+        projet projets = projetControl.addProjetwithIdUser(p, idUser);
         if (projets != null)
             return ResponseEntity.ok("Projet ajouté avec succès !");
         else
             return ResponseEntity.badRequest().body("Impossible d'ajouter le projet avec l'utilisateur fourni.");
+
     }
 
 

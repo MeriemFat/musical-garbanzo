@@ -69,10 +69,10 @@ public class ProjetServices implements IProjet {
 
 
     @Override
-    public projet addProjetwithIdUser(projet p, Long idUser , String nomprojet ) {
+    public projet addProjetwithIdUser(projet p, Long idUser ) {
         User user = userRepository.findById(idUser).orElse(null);
         p.setUser(user);
-        projet projetExistant = projetRepository.findByNomprojet(nomprojet);
+        projet projetExistant = projetRepository.findByNomprojet(p.getNomprojet());
         if (projetExistant == null) {
             projet nouveauProjet = new projet();
             nouveauProjet.setNomprojet(p.getNomprojet());

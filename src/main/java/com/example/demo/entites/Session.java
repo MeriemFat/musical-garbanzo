@@ -17,7 +17,8 @@ public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idsession;
-    private Date dateSession;
+    private Date dateDebutSession;
+    private Date dateFinSession;
     private String duréeprojet ;
     @Enumerated(EnumType.STRING)
     private TypeSession typeSession ;
@@ -35,5 +36,11 @@ public class Session implements Serializable {
     @ToString.Exclude
     private List<Ressources> ressources;
 
+    // liaison avec user Many To One
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "idUser")
+    private User user;
 
 }

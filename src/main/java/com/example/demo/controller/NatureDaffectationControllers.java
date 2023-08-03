@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.entites.Naturedaffectation;
 import com.example.demo.services.NatureDaffecServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,11 @@ public class NatureDaffectationControllers {
         return natureDaffectControl.GetAllNatureDaff();
     }
 
-      // http://localhost:8082/NatureDaffectation/addNatureDaffectation
+    // http://localhost:8082/NatureDaffectation/addNatureDaffectation
     @PostMapping("/addNatureDaffectation")
        public  Naturedaffectation addNatureDaff(@RequestBody Naturedaffectation naturedaff)
     {
         Naturedaffectation naturedaffectation = natureDaffectControl.addNatureDaff(naturedaff);
         return naturedaffectation;
     }
-
 }
