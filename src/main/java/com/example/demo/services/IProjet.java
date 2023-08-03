@@ -11,7 +11,7 @@ public interface IProjet {
 
     void removeProjet(Long idprojet);
 
-    projet addProjetwithIdUser(projet p, Long idUser);
+    projet addProjetwithIdUser(projet p, Long idUser , String nomprojet);
 
 
 }

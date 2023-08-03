@@ -30,10 +30,19 @@ public class ProjetServices implements IProjet {
     @Override
     public void removeProjet(Long idprojet){projetRepository.deleteById(idprojet);}
     @Override
-    public projet addProjetwithIdUser(projet p, Long idUser ) {
+    public projet addProjetwithIdUser(projet p, Long idUser , String nomprojet ) {
         User user = userRepository.findById(idUser).orElse(null);
         p.setUser(user);
-        return projetRepository.save(p);
+        projet projetExistant = projetRepository.findByNomprojet(nomprojet);
+        if (projetExistant == null) {
+            projet nouveauProjet = new projet();
+            nouveauProjet.setNomprojet(nomprojet);
+            nouveauProjet.setUser(user);
+            return projetRepository.save(nouveauProjet);
+        } else {
+            // Le projet existe déjà, vous pouvez choisir de lever une exception, de renvoyer un message, etc.
+            return null;
+        }
     }
 
 }

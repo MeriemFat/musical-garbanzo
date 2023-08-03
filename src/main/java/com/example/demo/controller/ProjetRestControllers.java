@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entites.projet;
-import com.example.demo.services.IProjet;
 import com.example.demo.services.ProjetServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,19 @@ public class ProjetRestControllers {
      return projetControl.GetAllprojet();
  }
 
- // add projet
-    // //http://localhost:8082/projet/addProject/1
-    @PostMapping("/addProject/{idUser}")
-    public projet addProjetwithIdUser(@RequestBody projet p ,
-                                      @PathVariable("idUser") Long idUser)
+ // add projet ( si il n'existe pas ) (check )
+    // //http://localhost:8082/projet/addprojet/1
+    @PostMapping("/addprojet/{idUser}/{nomprojet}")
+    public ResponseEntity<String> addProjetwithIdUser(@RequestBody projet p ,
+                                                      @PathVariable("idUser") Long idUser ,
+                                                      @PathVariable("nomprojet") String nomprojet)
     {
-        projet projets = projetControl.addProjetwithIdUser(p,idUser);
-        return projets;
+        projet projets = projetControl.addProjetwithIdUser(p,idUser,nomprojet);
+        if (projets != null) {
+            return ResponseEntity.ok("Projet ajouté avec succès !");
+        } else {
+            return ResponseEntity.badRequest().body("Impossible d'ajouter le projet avec l'utilisateur fourni.");
+        }
     }
 
     //http://localhost:8082/updateProjet/1

@@ -36,4 +36,11 @@ public class User implements Serializable {
     @ToString.Exclude
     private List<Ressources> resources;
 
+    // liaison avec Session One To Many
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "user")
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Session> sessions;
+
+
 }
