@@ -36,7 +36,7 @@ public class SessionService implements ISession{
         S.setUser(user);
         return sessionRepository.save(S);
     }
-
+/*
     public static void main(String[] args) {
         SpringApplication.run(SessionService.class, args);
     }
@@ -45,7 +45,7 @@ public class SessionService implements ISession{
         senderService.sendSimpleEmail("toemail@gmail.com",
                 "This is email body",
                 "This is email subject");
-    }
+    }*/
 
     @Override
     public List<Session> GetAllSession() {

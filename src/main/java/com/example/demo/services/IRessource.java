@@ -1,5 +1,4 @@
 package com.example.demo.services;
-
 import com.example.demo.entites.Ressources;
 import com.example.demo.entites.User;
 import com.example.demo.entites.projet;
@@ -10,7 +9,7 @@ public interface IRessource {
 
     List<Ressources> getAllRessources();
 
-    void removeRessouce(Long idRessources, User currentUser);
+    Integer removeRessouce(Long idRessources, Long idUser);
 
     Ressources updateRessource(Ressources r, Long idRessource);
 

@@ -34,22 +34,18 @@ public class RessourceServices implements IRessource{
     }
 
     @Override
-    public void removeRessouce(Long idRessources, User currentUser) {
-        if(currentUser.getRoleUser() == RoleUser.admin)
+    public Integer removeRessouce(Long idRessources, Long idUser) {
+        User currentUser = userRepository.findById(idUser).orElse(null);
+        if(currentUser.getRoleUser() == RoleUser.admin){
             ressourceRepository.deleteById(idRessources);
+        return 1;
+        }
         else
-            throw new UnauthorizedActionException("Only admin users can update projects.");
+                return 0;
     }
 
-    /*@Override
-    public Ressources updateRessource(Ressources r, Long idRessource ){
-        Ressources existingRessource = ressourceRepository.findById(idRessource).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + idRessource));;
-        BeanUtils.copyProperties(r, existingRessource, "idRessource");
-        return ressourceRepository.save(existingRessource);
-    }*/
     public static List<String> getResourceAttributes(Class<?> resourceClass) {
         List<String> attributeNames = new ArrayList<>();
-
         Field[] fields = resourceClass.getDeclaredFields();
         for (Field field : fields) {
             attributeNames.add(field.getName());

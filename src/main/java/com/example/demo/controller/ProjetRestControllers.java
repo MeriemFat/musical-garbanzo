@@ -10,32 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@RestController
-@RequestMapping("/projet")
-public class ProjetRestControllers {
-    @Autowired
-    ProjetServices  projetControl;
+    @RestController
+    @RequestMapping("/projet")
+    public class ProjetRestControllers {
+          @Autowired
+          ProjetServices  projetControl;
 
-//get all project
-    //http://localhost:8082/projet/GetallProject
-     @GetMapping("/GetallProject")
-     List<projet> GetAllprojet() {
-         return projetControl.GetAllprojet();
-     }
+         @GetMapping("/GetallProject")
+         List<projet> GetAllprojet() {
+             return projetControl.GetAllprojet();
+         }
 
 
-    @PostMapping("/addprojet/{idUser}/{nomprojet}")
-    public ResponseEntity<String> addProjetwithIdUser(@RequestBody projet p ,
-                                                      @PathVariable("idUser") Long idUser ) {
-        projet projets = projetControl.addProjetwithIdUser(p, idUser);
-        if (projets != null)
-            return ResponseEntity.ok("Projet ajouté avec succès !");
-        else
-            return ResponseEntity.badRequest().body("Impossible d'ajouter le projet avec l'utilisateur fourni.");
-
-    }
-
-
+        @PostMapping("/addprojet/{idUser}")
+        public ResponseEntity<String> addProjetwithIdUser(@RequestBody projet p ,
+                                                          @PathVariable("idUser") Long idUser
+                                                          ) {
+            projet projets = projetControl.addProjetwithIdUser(p, idUser);
+            if (projets != null) {
+                return ResponseEntity.ok("Projet ajouté avec succès !");
+            } else {
+                return ResponseEntity.badRequest().body("Projet existe déjà");
+            }
+        }
 
     //http://localhost:8082/updateProjet/1
     @PutMapping("/updates/{idprojet}")
@@ -45,13 +42,15 @@ public class ProjetRestControllers {
     }
 
 
-
-
-    //http://localhost:8082/projet/removeProjet/3
     @DeleteMapping("/removeProjet/{iduser}/{idprojet}")
-    public void removeprojet(@PathVariable("idprojet") Long idprojet,
-                             @PathVariable("iduser") User currentUser) {
-        projetControl.removeProjet(idprojet, currentUser);
+    public ResponseEntity<String> removeprojet(@PathVariable("idprojet") Long idprojet,
+                             @PathVariable("iduser") Long idUser) {
+        Integer test = projetControl.removeProjet(idprojet, idUser);
+        if(test == 1)
+            return ResponseEntity.ok("Project deleted !");
+     else
+        return ResponseEntity.badRequest().body("only admin can delete a project");
+
     }
 
 }

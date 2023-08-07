@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface RessourceRepo extends JpaRepository<Ressources, Long> {
 
     Ressources findByNomRessource(String nomRessource);
+
+    Ressources findByNomRessourceAndPrenomRessource(String nomRessource, String prenomRessource);
 }

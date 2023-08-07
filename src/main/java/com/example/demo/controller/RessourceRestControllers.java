@@ -21,15 +21,11 @@ public class RessourceRestControllers {
     RessourceServices ressourceControl;
 
 
-    //http://localhost:8082/Ressources/getAllRessources
     @GetMapping("/getallRessources")
     List<Ressources> getAllRessources(){
         return ressourceControl.getAllRessources();
     }
 
-
-
-    //http://localhost:8082/Ressources/add/1
     @PostMapping("/addressource/{idUser}")
     public Ressources addRessourcewithIdUser(@RequestBody Ressources r ,
                                              @PathVariable("idUser") Long idUser) {
@@ -38,8 +34,6 @@ public class RessourceRestControllers {
     }
 
 
-
-    //http://localhost:8082/update-ressource/1
     @PutMapping("/update/{idRessource}")
     public void updateRessource(@RequestBody Ressources r,
                                 @PathVariable("idRessource") Long idRessource ) {
@@ -47,12 +41,14 @@ public class RessourceRestControllers {
     }
 
 
-
-    //http://localhost:8082/removeRessource/1
     @DeleteMapping("/removeRessource/{iduser}/{idressource}")
-    public void removeprojet(@PathVariable("idressource") Long idressource,
-                             @PathVariable("iduser") User currentUser) {
-        ressourceControl.removeRessouce(idressource, currentUser);
+    public ResponseEntity<String> removeRessource(@PathVariable("idressource") Long idressource,
+                             @PathVariable("iduser") Long idUser) {
+        Integer test = ressourceControl.removeRessouce(idressource, idUser);
+        if(test == 1)
+            return ResponseEntity.ok("Resource deleted !");
+        else
+            return ResponseEntity.badRequest().body("only admin can delete a resource");
     }
 
 }

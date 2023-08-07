@@ -17,7 +17,7 @@ public class StatuDaffectation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStat;
-    private Date Nomstatutdaff;
+    private String Nomstatutdaff;
 
     // liaison avec Affectation
     @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)

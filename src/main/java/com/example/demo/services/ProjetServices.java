@@ -29,16 +29,10 @@ public class ProjetServices implements IProjet {
         return projetRepository.findAll();
     }
 
-    /*@Override
-    public projet updateProjet(projet p,Long projectId) {
-        projet existingProject = projetRepository.findById(projectId).orElseThrow(() -> new UnauthorizedActionException("Project not found with ID: " + projectId));
-        BeanUtils.copyProperties(p, existingProject, "idprojet");
-        return projetRepository.save(existingProject);
-    }*/
 
-    public static List<String> getProjetAttributes(Class<?> projeteClass) {
+    public static List<String> getProjetAttributes(Class<?> projetClass) {
         List<String> attributeNames = new ArrayList<>();
-        Field[] fields = projeteClass.getDeclaredFields();
+        Field[] fields = projetClass.getDeclaredFields();
         for (Field field : fields) {
             attributeNames.add(field.getName());
         }
@@ -60,11 +54,14 @@ public class ProjetServices implements IProjet {
     }
 
     @Override
-    public void removeProjet(Long idprojet, User currentUser){
-        if(currentUser.getRoleUser() == RoleUser.admin)
+    public Integer removeProjet(Long idprojet, Long idUser){
+        User currentUser = userRepository.findById(idUser).orElse(null);
+        if(currentUser.getRoleUser() == RoleUser.admin) {
             projetRepository.deleteById(idprojet);
+            return 1;
+        }
         else
-            throw new UnauthorizedActionException("Only admin users can update projects.");
+            return 0;
     }
 
 

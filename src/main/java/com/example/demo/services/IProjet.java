@@ -10,7 +10,7 @@ public interface IProjet {
 
     List<projet> GetAllprojet();
 
-    void removeProjet(Long idprojet, User currentUser);
+    Integer removeProjet(Long idprojet,  Long idUser);
 
     projet addProjetwithIdUser(projet p, Long idUser);
 

@@ -35,13 +35,13 @@ public class projet implements Serializable {
 
 
     // many to one with user
-    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @JoinColumn(name = "idUser")
     private User user;
 
     // liaison avec Session
-    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @JoinColumn(name = "idsession")
     private Session session;

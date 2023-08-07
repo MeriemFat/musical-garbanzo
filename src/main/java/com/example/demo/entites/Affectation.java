@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Entity
@@ -18,18 +19,19 @@ public class Affectation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAffectation;
-    private String manager;
+    private String nomManager;
+    private String prenomManager;
     private String departement;
+    private String nomRessource;
+    private String prenomRessource;
+    private String projet;
     private String country;
     private String region;
-    private String ressource;
-    private String projet;
-    private String statuDaff;
-    private String natureDaff;
-    private Integer joursA;
-    private Integer joursB;
-    private Integer joursC;
+    private Integer moisA;
+    private Integer moisB;
+    private Integer moisC;
 
+    private Integer sommeParProjet;
 
 
 // liaison avec nature d'affectation one to many
@@ -65,4 +67,15 @@ public class Affectation implements Serializable {
     private projet project;
 
 
+    public Object get(String attributeName) {
+        try {
+            Class<?> clazz = this.getClass();
+            Field field = clazz.getDeclaredField(attributeName);
+            field.setAccessible(true);
+            return field.get(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
