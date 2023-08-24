@@ -19,9 +19,16 @@ public class Session implements Serializable {
     private Long idsession;
     private Date dateDebutSession;
     private Date dateFinSession;
-    private String duréeprojet ;
+    private String moisA;
+    private String moisB;
+    private String moisC;
+    private Number joursTravailMoisA;
+    private Number joursTravailMoisb;
+    private Number joursTravailMoisC;
+    private String email ;
     @Enumerated(EnumType.STRING)
     private TypeSession typeSession ;
+
 
     // liaison avec projet one to many
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy = "session")

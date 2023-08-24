@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entites.Ressources;
-import com.example.demo.entites.User;
-import com.example.demo.entites.projet;
-import com.example.demo.services.IRessource;
-import com.example.demo.services.RessourceServices;
+import com.example.demo.services.impl.RessourceServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

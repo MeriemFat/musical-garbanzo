@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.entites.Session;
-import com.example.demo.services.SessionService;
+import com.example.demo.services.impl.SessionService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,25 @@ public class SessionControllers {
         }
     }
 
+   /* @PostMapping("/sendEmailing/{idUser}")
+    public ResponseEntity<String> sendEmail(@RequestBody Session session, @PathVariable  Long idUser) {
+        try {
+            sessionControl.sendEmailSession(session, idUser);
+            return ResponseEntity.ok("Email sent successfully");
+        } catch (MessagingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email");
+        }
+    }*/
 
+
+    @SneakyThrows
+    @GetMapping("/send/{idsession}")
+    public ResponseEntity<String> sendEmailSession(@PathVariable("idsession") Long idsession) throws MessagingException {
+        try {
+            sessionControl.sendEmailSession(idsession);
+            return ResponseEntity.ok("Email sent successfully");
+        } catch (MessagingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email");
+        }
+    }
 }
